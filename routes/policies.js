@@ -39,20 +39,22 @@ router.get('/username/:username', async (req, res, next) => {
     const policiesJson = JSON.parse(results[1]);
     let policie = null;
     const user = usersJson.clients.find( client => client.name === username);
-    if(user) {
+    
+    if (user) {
       policie = policiesJson.policies.filter( policie => policie.clientId === user.id );
-    }
-    if(policie) {
-      if(user.role === 'admin') {
-        res.send(policie)
+
+      if (policie) {
+        if (user.role === 'admin') {
+          res.send(policie)
+        } else {
+            res.send('<h1>User unauthorized</h1>')
+          }
       } else {
-        res.send('<h1>User unauthorized</h1>')
-      }
-    } else if(user) {
-      res.send('<h1>Policie not found</h1>')
+          res.send('<h1>Policie not found</h1>')
+        }
     } else {
-      res.send('<h1>User not found</h1>')
-    }
+        res.send('<h1>User not found</h1>')
+      }
   }).catch(err => {
       
   });

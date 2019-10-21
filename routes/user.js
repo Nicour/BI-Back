@@ -71,21 +71,24 @@ router.get('/policieNumber/:policieId', async (req, res, next) => {
   getData(endpoints).then((results) => {
     const usersJson = JSON.parse(results[0]);
     const policiesJson = JSON.parse(results[1]);
+
     let user = null
     const policie = policiesJson.policies.find( policie => policie.id === policieId );
+    
     if (policie) {
-      user = usersJson.clients.find( client => client.id === policie.clientId);
-    }
-    if(user) {
-      if (user.role === 'admin') {
-        res.send(user)
+      user = usersJson.clients.find( client => client.id === policie.clientId );
+
+      if (user) {
+        if (user.role === 'admin') {
+          res.send(user)
+        } else {
+          res.send('<h1>User unauthorized</h1>')
+        }
       } else {
-        res.send('<h1>User unauthorized</h1>')
-      }
-    } else if (policie) {
-      res.send('<h1>User not found</h1>')
+        res.send('<h1>User not found</h1>')
+      } 
     } else {
-      res.send('<h1>Policie Id not found</h1>')
+      res.send('<h1>Policie not found</h1>')
     }
   }).catch(err => {
       
@@ -93,3 +96,4 @@ router.get('/policieNumber/:policieId', async (req, res, next) => {
 })
 
 module.exports = router;
+
