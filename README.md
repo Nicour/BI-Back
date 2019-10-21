@@ -50,7 +50,7 @@ Get the user linked to a policy number -> Can be accessed by users with role
 
 + Clone the repo
 + npm install
-+ npm run start
++ node app.js
 
 The app runs on port 3000
 
