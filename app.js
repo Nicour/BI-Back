@@ -2,7 +2,6 @@
 
 const express 	= require("express"); 
 const app 	= express();
-const request 	= require("request");
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');

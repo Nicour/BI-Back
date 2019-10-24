@@ -2,7 +2,6 @@
 
 const express 	= require("express"); 
 const router = express.Router();
-const app 	= express();
 const request 	= require("request");
 
 const usersUrl = "http://www.mocky.io/v2/5808862710000087232b75ac";
@@ -24,14 +23,14 @@ router.get('/username/:username', async (req, res, next) => {
         }
       });
     });
-  }
+  };
 
 
   const getData = endpoints => {
       return Promise.all(endpoints.map((url) => {
           return requestAsync(url);
       }));
-  }
+  };
 
   const endpoints = [usersUrl, policiesUrl];
   getData(endpoints).then((results) => {
@@ -58,6 +57,6 @@ router.get('/username/:username', async (req, res, next) => {
   }).catch(err => {
       
   });
-})
+});
 
 module.exports = router;

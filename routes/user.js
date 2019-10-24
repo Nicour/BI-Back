@@ -2,7 +2,6 @@
 
 const express 	= require("express"); 
 const router = express.Router();
-const app 	= express();
 const request 	= require("request");
 
 const usersUrl = "http://www.mocky.io/v2/5808862710000087232b75ac";
@@ -31,7 +30,7 @@ router.get('/username/:username', (req, res, next) => {
   request({
     url: usersUrl,
     json: false
-  },  (error, response, body) => {   
+    }, (error, response, body) => {   
         const usersJson = JSON.parse(body);
         const client = usersJson.clients.find(client => username === client.name)
         if (client) {
@@ -41,7 +40,7 @@ router.get('/username/:username', (req, res, next) => {
           res.send('<h1>User Not Found</h1>')
         }        
       }
-  )
+  );
 });
 
 router.get('/policieNumber/:policieId', async (req, res, next) => {
@@ -59,20 +58,20 @@ router.get('/policieNumber/:policieId', async (req, res, next) => {
         }
       });
     });
-  }
+  };
 
   const getData = endpoints => {
     return Promise.all(endpoints.map(url => {
       return requestAsync(url);
     }));
-  }
+  };
 
   const endpoints = [usersUrl, policiesUrl];
   getData(endpoints).then((results) => {
     const usersJson = JSON.parse(results[0]);
     const policiesJson = JSON.parse(results[1]);
 
-    let user = null
+    let user = null;
     const policie = policiesJson.policies.find( policie => policie.id === policieId );
     
     if (policie) {
@@ -93,7 +92,7 @@ router.get('/policieNumber/:policieId', async (req, res, next) => {
   }).catch(err => {
       
   });
-})
+});
 
 module.exports = router;
 
